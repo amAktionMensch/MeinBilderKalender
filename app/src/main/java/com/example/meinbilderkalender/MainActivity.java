@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.autofill.AutofillValue;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -208,18 +210,26 @@ public class MainActivity extends AppCompatActivity {
 
         TextView dateText = findViewById(R.id.txtSelectedDate);
         DateFormat format = new SimpleDateFormat(String.valueOf(R.string.dateFormat), Locale.GERMAN);
-        Date selectedDate = format.parse(dateText.getText().toString());
+//        Date selectedDate = format.parse(dateText.getText().toString());
 
         Context context = this;
         SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
         Set events = sharedPref.getStringSet(getString(R.string.dateFormat), null);
 
-        if (events != null) {
-            for (int i = 1; i <= events.size(); i = i + 3) {
+//        if (events != null) {
 
+        LinearLayout layout = findViewById(R.id.lytContent);
+        layout.removeAllViews();
+//        for (int i = 1; i <= events.size(); i = i + 3) {
+            for (int i = 1; i <= 1; i = i + 3) {
+                //ImageView Setup
+                ImageView imageView = new ImageView(this);
+                imageView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                imageView.setBackgroundResource(R.drawable.bike);
+                layout.addView(imageView);
             }
-        }
+//        }
 
 
     }
