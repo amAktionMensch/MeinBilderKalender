@@ -12,7 +12,7 @@ import java.io.File;
 
 public class PlusEventActivity extends AppCompatActivity {
 
-    public int id_event;
+    public String id_event;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,7 @@ public class PlusEventActivity extends AppCompatActivity {
         iv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                id_event = 1;
+                id_event = "R.drawable.bowling";
                 forward();
             }
         });
@@ -55,7 +55,7 @@ public class PlusEventActivity extends AppCompatActivity {
         iv2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                id_event = 2;
+                id_event = "R.drawable.roa";
                 forward();
             }
         });
@@ -63,7 +63,7 @@ public class PlusEventActivity extends AppCompatActivity {
         iv3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                id_event = 3;
+                id_event = "R.drawable.cake";
                 forward();
             }
         });
@@ -71,7 +71,7 @@ public class PlusEventActivity extends AppCompatActivity {
         iv4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                id_event = 4;
+                id_event = "R.drawable.chess";
                 forward();
             }
         });
