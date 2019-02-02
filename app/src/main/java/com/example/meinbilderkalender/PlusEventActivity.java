@@ -39,7 +39,10 @@ public class PlusEventActivity extends AppCompatActivity {
         iv3.setImageBitmap(bitmap3);
         iv4.setImageBitmap(bitmap4);*/
 
-        //iv1.setImageDrawable();
+        iv1.setImageDrawable(getResources().getDrawable(R.drawable.bowling));
+        iv2.setImageDrawable(getResources().getDrawable(R.drawable.roa));
+        iv3.setImageDrawable(getResources().getDrawable(R.drawable.cake));
+        iv4.setImageDrawable(getResources().getDrawable(R.drawable.chess));
 
         iv1.setOnClickListener(new View.OnClickListener() {
             @Override

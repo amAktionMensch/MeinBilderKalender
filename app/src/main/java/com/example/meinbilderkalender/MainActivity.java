@@ -2,7 +2,9 @@ package com.example.meinbilderkalender;
 
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,11 +23,14 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Set;
 
 
 public class MainActivity extends AppCompatActivity {
 
     public static String txtPhn = "01631694010";
+    public String today;
+    public Set<String> tasks;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
+        today = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
         //set current Date
         TextView txtSelectedDate = findViewById(R.id.txtSelectedDate);
         txtSelectedDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
@@ -91,6 +96,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private boolean saveData() {
+        Context context = this;
+        SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        Set<String> set = sharedPref.getStringSet(today, null);
+        //set.add()
+        SharedPreferences.Editor editor = sharedPref.edit();
+        return true;
+    }
     private void switchDate(Integer offset) throws ParseException {
 
         System.out.println("Button pressed " + offset);
