@@ -5,11 +5,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 
 import java.io.File;
 
 public class PlusEventActivity extends AppCompatActivity {
+
+    public int id_event;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,20 +24,59 @@ public class PlusEventActivity extends AppCompatActivity {
         ImageView iv3 = findViewById(R.id.iv3);
         ImageView iv4 = findViewById(R.id.iv4);
 
-        File imageFile1 = new File("/sdcard/gallery_photo_4.jpg");
+        /*File imageFile1 = new File("/sdcard/gallery_photo_4.jpg");
         File imageFile2 = new File("/sdcard/gallery_photo_4.jpg");
+        File imageFile3 = new File();
+        File imageFile4 = new File();
 
         Bitmap bitmap1 = BitmapFactory.decodeFile(imageFile1.getAbsolutePath());
         Bitmap bitmap2 = BitmapFactory.decodeFile(imageFile2.getAbsolutePath());
+        Bitmap bitmap3 = BitmapFactory.decodeFile(imageFile3.getAbsolutePath());
+        Bitmap bitmap4 = BitmapFactory.decodeFile(imageFile4.getAbsolutePath());
 
         iv1.setImageBitmap(bitmap1);
         iv2.setImageBitmap(bitmap2);
+        iv3.setImageBitmap(bitmap3);
+        iv4.setImageBitmap(bitmap4);*/
 
-        int id_event = 3;
+        //iv1.setImageDrawable();
 
+        iv1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                id_event = 1;
+                forward();
+            }
+        });
+
+        iv2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                id_event = 2;
+                forward();
+            }
+        });
+
+        iv3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                id_event = 3;
+                forward();
+            }
+        });
+
+        iv4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                id_event = 4;
+                forward();
+            }
+        });
+    }
+
+    public void forward() {
         Intent myIntent = new Intent(PlusEventActivity.this, MainActivity.class);
         myIntent.putExtra("event", id_event);
         PlusEventActivity.this.startActivity(myIntent);
-
     }
 }

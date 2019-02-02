@@ -44,9 +44,16 @@ public class MainActivity extends AppCompatActivity {
         //set current Date
         TextView txtSelectedDate = findViewById(R.id.txtSelectedDate);
         txtSelectedDate.setText(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()));
+        //set Plus Button
+        Button btnPlus = findViewById(R.id.btnPlus);
+        btnPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(MainActivity.this, PlusEventActivity.class);
+                MainActivity.this.startActivity(myIntent);
+            }
+        });
 
-        Intent myIntent = new Intent(MainActivity.this, PlusEventActivity.class);
-        MainActivity.this.startActivity(myIntent);
 
 
     }
