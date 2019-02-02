@@ -218,7 +218,6 @@ public class MainActivity extends AppCompatActivity {
         Set events = sharedPref.getStringSet(getString(R.string.dateFormat), null);
 
 //        if (events != null) {
-
         LinearLayout layout = findViewById(R.id.lytContent);
         layout.removeAllViews();
 //        for (int i = 1; i <= events.size(); i = i + 3) {
@@ -226,12 +225,28 @@ public class MainActivity extends AppCompatActivity {
                 //ImageView Setup
                 ImageView imageView = new ImageView(this);
                 imageView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+
+                imageView.setOnClickListener(readDescription());
+
+
+                imageView.setContentDescription("Fahrradfahren");
                 imageView.setBackgroundResource(R.drawable.bike);
+
                 layout.addView(imageView);
             }
 //        }
 
 
     }
+
+    private View.OnClickListener readDescription(){
+            return new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            };
+    };
+
 
 }
