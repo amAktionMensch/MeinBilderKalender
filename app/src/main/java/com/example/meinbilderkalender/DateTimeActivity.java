@@ -23,7 +23,7 @@ public class DateTimeActivity extends AppCompatActivity {
     public String task;
     public String description;
     public String time = "Morgens";
-    public String today;
+    public String today ="";
 
     public TextView tv1;
     @Override
@@ -84,7 +84,7 @@ public class DateTimeActivity extends AppCompatActivity {
 
 
     private boolean saveData(String time) {
-
+        getDate();
         getDescription(time);
         DateFormat format = new SimpleDateFormat("hh:mm", Locale.GERMAN);
         Context context = this;
@@ -124,4 +124,6 @@ public class DateTimeActivity extends AppCompatActivity {
         today = tv1.getText().toString();
         return true;
     }
+
+
 }

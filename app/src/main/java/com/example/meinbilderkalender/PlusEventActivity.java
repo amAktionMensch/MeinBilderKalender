@@ -4,15 +4,21 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.File;
+import java.util.Locale;
 
 public class PlusEventActivity extends AppCompatActivity {
 
     public String id_event;
+
+    private TextToSpeech textToSpeech;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,20 +30,24 @@ public class PlusEventActivity extends AppCompatActivity {
         ImageView iv3 = findViewById(R.id.iv3);
         ImageView iv4 = findViewById(R.id.iv4);
 
-        /*File imageFile1 = new File("/sdcard/gallery_photo_4.jpg");
-        File imageFile2 = new File("/sdcard/gallery_photo_4.jpg");
-        File imageFile3 = new File();
-        File imageFile4 = new File();
+        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status == TextToSpeech.SUCCESS) {
+                    int ttsLang = textToSpeech.setLanguage(Locale.GERMAN);
 
-        Bitmap bitmap1 = BitmapFactory.decodeFile(imageFile1.getAbsolutePath());
-        Bitmap bitmap2 = BitmapFactory.decodeFile(imageFile2.getAbsolutePath());
-        Bitmap bitmap3 = BitmapFactory.decodeFile(imageFile3.getAbsolutePath());
-        Bitmap bitmap4 = BitmapFactory.decodeFile(imageFile4.getAbsolutePath());
-
-        iv1.setImageBitmap(bitmap1);
-        iv2.setImageBitmap(bitmap2);
-        iv3.setImageBitmap(bitmap3);
-        iv4.setImageBitmap(bitmap4);*/
+                    if (ttsLang == TextToSpeech.LANG_MISSING_DATA
+                            || ttsLang == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("TTS", "The Language is not supported!");
+                    } else {
+                        Log.i("TTS", "Language Supported.");
+                    }
+                    Log.i("TTS", "Initialization success.");
+                } else {
+                    Toast.makeText(getApplicationContext(), "TTS Initialization failed!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         iv1.setImageDrawable(getResources().getDrawable(R.drawable.bowling));
         iv2.setImageDrawable(getResources().getDrawable(R.drawable.roa));
@@ -49,6 +59,12 @@ public class PlusEventActivity extends AppCompatActivity {
             public void onClick(View v) {
                 id_event = "R.drawable.bowling";
                 forward();
+
+                int speechStatus = textToSpeech.speak(id_event, TextToSpeech.QUEUE_FLUSH, null);
+
+                if (speechStatus == TextToSpeech.ERROR) {
+                    Log.e("TTS", "Error in converting Text to Speech!");
+                }
             }
         });
 
@@ -81,5 +97,15 @@ public class PlusEventActivity extends AppCompatActivity {
         Intent myIntent = new Intent(PlusEventActivity.this, DateTimeActivity.class);
         myIntent.putExtra("event", id_event);
         PlusEventActivity.this.startActivity(myIntent);
+        //onDestroy();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
     }
 }
