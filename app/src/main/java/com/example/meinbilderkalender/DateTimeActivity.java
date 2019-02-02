@@ -32,13 +32,13 @@ public class DateTimeActivity extends AppCompatActivity {
         Intent intent = getIntent();
         task = intent.getStringExtra("event");
 
-       /* ImageView iv1 = findViewById(R.id.);
-        ImageView iv2 = findViewById(R.id.);
-        ImageView iv3 = findViewById(R.id.);*/
+        ImageView iv1 = findViewById(R.id.btnMorning);
+        ImageView iv2 = findViewById(R.id.btnNoon);
+        ImageView iv3 = findViewById(R.id.btnEvening);
 
         tv1 = findViewById(R.id.txtSelectedDate);
 
-       /* iv1.setOnClickListener(new View.OnClickListener(){
+       iv1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 time = "Morgens";
@@ -60,7 +60,7 @@ public class DateTimeActivity extends AppCompatActivity {
                 time = "Abends";
                 saveData(time);
             }
-        });*/
+        });
 
 
     }
