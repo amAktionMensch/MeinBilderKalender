@@ -1,10 +1,12 @@
 package com.example.meinbilderkalender;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageButton;
@@ -12,7 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
@@ -49,9 +53,46 @@ public class DateTimeActivity extends AppCompatActivity {
             }
         });
 
-       /* ImageView iv1 = findViewById(R.id.);
-        ImageView iv2 = findViewById(R.id.);
-        ImageView iv3 = findViewById(R.id.);*/
+        String date = intent.getStringExtra("date");
+        //Configuration of DateForwardButton
+        ImageButton btnDateForward = findViewById(R.id.btnDateForward);
+        btnDateForward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    switchDate(1);
+                } catch (ActivityNotFoundException activityException) {
+                    Log.e("Calling a Phone Number", "Call failed", activityException);
+                } catch (ParseException e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        //Configuration of DateBackwardButton
+        ImageButton btnDateBackward = findViewById(R.id.btnDateBackward);
+        btnDateBackward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    switchDate(-1);
+                } catch (ActivityNotFoundException activityException) {
+                    Log.e("Calling a Phone Number", "Call failed", activityException);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        today = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+
+        //set current Date
+        TextView txtSelectedDate = findViewById(R.id.txtSelectedDate);
+
+        if(date != null) {
+            txtSelectedDate.setText(date);
+        } else {
+            txtSelectedDate.setText(new SimpleDateFormat (getString(R.string.dateFormat)).format(new Date()));
+        }
 
         tv1 = findViewById(R.id.txtSelectedDate);
 
@@ -124,6 +165,17 @@ public class DateTimeActivity extends AppCompatActivity {
         today = tv1.getText().toString();
         return true;
     }
+    private void switchDate(Integer offset) throws ParseException {
 
+        TextView dateText = findViewById(R.id.txtSelectedDate);
+        DateFormat format = new SimpleDateFormat(getString(R.string.dateFormat), Locale.GERMAN);
+        Date oldDate = format.parse(dateText.getText().toString());
+
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(oldDate);
+        cal.add(Calendar.DATE, offset);
+        dateText.setText(format.format(cal.getTime()));
+    }
 
 }

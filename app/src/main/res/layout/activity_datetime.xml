@@ -10,22 +10,20 @@
 
     <ImageButton
         android:id="@+id/btnDateBackward"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/arrow_left" />
 
     <ImageButton
         android:id="@+id/btnDateForward"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
         android:src="@drawable/arrow_right"
         app:layout_constraintStart_toEndOf="@+id/btnDateBackward"
         app:layout_constraintTop_toTopOf="parent" />
@@ -33,13 +31,15 @@
 
     <TextView
         android:id="@+id/txtSelectedDate"
-        android:layout_width="wrap_content"
-        android:layout_height="43dp"
-        android:layout_marginStart="150dp"
-        android:layout_marginLeft="150dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="216dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="190dp"
+        android:layout_marginLeft="190dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="date"
+        android:lineHeight="70dp"
+        android:textSize="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -82,19 +82,20 @@
         <ImageButton
             android:id="@+id/btnMorning"
             android:layout_width="match_parent"
-            android:layout_height="167dp"
-            app:srcCompat="@drawable/morning" />
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/morning_smaller" />
 
         <ImageButton
             android:id="@+id/btnNoon"
             android:layout_width="match_parent"
-            android:layout_height="182dp"
-            app:srcCompat="@drawable/noon" />
+            android:layout_height="162dp"
+            app:srcCompat="@drawable/noon_smaller" />
 
         <ImageButton
             android:id="@+id/btnEvening"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/evening" />
+            app:srcCompat="@drawable/evening_smaller" />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

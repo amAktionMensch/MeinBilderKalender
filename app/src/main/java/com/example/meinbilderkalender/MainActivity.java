@@ -159,18 +159,28 @@ public class MainActivity extends AppCompatActivity {
         Context context = this;
         SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
+        System.out.println("Do we have Preferences?");
+        System.out.println(sharedPref);
+        System.out.println("Or Not");
+
         Set events = sharedPref.getStringSet(dateText.toString(), null);
 
-//       if (events != null) {
+        System.out.println("Do we have events?");
+        System.out.println(events);
+        System.out.println("Or Not");
+
+       if (events != null) {
+           Object[] eventArray = events.toArray(new String[events.size()]   );
+           System.out.println(eventArray);
         LinearLayout layout = findViewById(R.id.lytContent);
         layout.removeAllViews();
-//        for (int i = 1; i <= events.size(); i = i + 3) {
-            for (int i = 1; i <= 1; i = i + 3) {
+       for (int i = 1; i <= eventArray.length; i = i + 3) {
+
+           System.out.println(i);
                 //ImageView Setup
                 ImageView imageView = new ImageView(this);
                 imageView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
 
-                imageView.setOnClickListener(readDescription());
 
 
                 imageView.setContentDescription("Fahrradfahren");
@@ -178,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
 
                 layout.addView(imageView);
             }
-//        }
+        }
 
 
     }
