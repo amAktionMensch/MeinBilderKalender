@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,22 +36,54 @@ public class MainActivity extends AppCompatActivity {
     public static String txtPhn = "01631694010";
     public String today;
     public Set<String> tasks;
+    public TextToSpeech textToSpeech;
+
+    public boolean firstClickAdd = true;
+    public boolean firstClickForward = true;
+    public boolean firstClickBack = true;
+    public boolean firstClickHelp = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Initialization of the screenreader
+        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status == TextToSpeech.SUCCESS) {
+                    int ttsLang = textToSpeech.setLanguage(Locale.GERMAN);
+
+                    if (ttsLang == TextToSpeech.LANG_MISSING_DATA
+                            || ttsLang == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("TTS", "The Language is not supported!");
+                    } else {
+                        Log.i("TTS", "Language Supported.");
+                    }
+                    Log.i("TTS", "Initialization success.");
+                } else {
+                    Toast.makeText(getApplicationContext(), "TTS Initialization failed!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         //Configuration of HelpButton
         ImageButton btnHelp = findViewById(R.id.btnHelp);
         btnHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:"+txtPhn));
-                    startActivity(callIntent);
-                } catch (ActivityNotFoundException activityException) {
-                    Log.e("Calling a Phone Number", "Call failed", activityException);
+                if(firstClickHelp) {
+                    int speechStatus = textToSpeech.speak("Betreuer anrufen.", TextToSpeech.QUEUE_FLUSH, null);
+                    firstClickTrue();
+                    firstClickHelp = false;
+                } else {
+                    try {
+                        Intent callIntent = new Intent(Intent.ACTION_CALL);
+                        callIntent.setData(Uri.parse("tel:" + txtPhn));
+                        startActivity(callIntent);
+                    } catch (ActivityNotFoundException activityException) {
+                        Log.e("Calling a Phone Number", "Call failed", activityException);
+                    }
                 }
             }
         });
@@ -64,12 +97,18 @@ public class MainActivity extends AppCompatActivity {
         btnDateForward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    switchDate(1);
-                } catch (ActivityNotFoundException activityException) {
-                    Log.e("Calling a Phone Number", "Call failed", activityException);
-                } catch (ParseException e){
-                    e.printStackTrace();
+                if(firstClickForward) {
+                    int speechStatus = textToSpeech.speak("Ein Tag vorwärts.", TextToSpeech.QUEUE_FLUSH, null);
+                    firstClickTrue();
+                    firstClickForward = false;
+                } else {
+                    try {
+                        switchDate(1);
+                    } catch (ActivityNotFoundException activityException) {
+                        Log.e("Calling a Phone Number", "Call failed", activityException);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -79,12 +118,18 @@ public class MainActivity extends AppCompatActivity {
         btnDateBackward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    switchDate(-1);
-                } catch (ActivityNotFoundException activityException) {
-                    Log.e("Calling a Phone Number", "Call failed", activityException);
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                if(firstClickBack) {
+                    int speechStatus = textToSpeech.speak("Ein Tag zurück.", TextToSpeech.QUEUE_FLUSH, null);
+                    firstClickTrue();
+                    firstClickBack = false;
+                } else {
+                    try {
+                        switchDate(-1);
+                    } catch (ActivityNotFoundException activityException) {
+                        Log.e("Calling a Phone Number", "Call failed", activityException);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -100,11 +145,18 @@ public class MainActivity extends AppCompatActivity {
 
         //set Plus Button
         ImageButton btnPlus = findViewById(R.id.btnPlus);
+
         btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(MainActivity.this, PlusEventActivity.class);
-                MainActivity.this.startActivity(myIntent);
+                if(firstClickAdd) {
+                    int speechStatus = textToSpeech.speak("Neuen Termin hinzufügen.", TextToSpeech.QUEUE_FLUSH, null);
+                    firstClickTrue();
+                    firstClickAdd = false;
+                } else {
+                    Intent myIntent = new Intent(MainActivity.this, PlusEventActivity.class);
+                    MainActivity.this.startActivity(myIntent);
+                }
             }
         });
 
@@ -147,6 +199,8 @@ public class MainActivity extends AppCompatActivity {
         cal.setTime(oldDate);
         cal.add(Calendar.DATE, offset);
         dateText.setText(format.format(cal.getTime()));
+        int speechStatus = textToSpeech.speak(dateText.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
+
     }
 
     private void displayContent() throws ParseException {
@@ -202,4 +256,11 @@ public class MainActivity extends AppCompatActivity {
     };
 
 
+    private void firstClickTrue() {
+        firstClickAdd = true;
+        firstClickBack = true;
+        firstClickForward = true;
+        firstClickHelp = true;
+        return;
+    }
 }
