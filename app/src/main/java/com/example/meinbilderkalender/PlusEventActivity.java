@@ -1,5 +1,6 @@
 package com.example.meinbilderkalender;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -15,9 +16,25 @@ public class PlusEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plusevents);
 
-        File imageFile = new File("/sdcard/gallery_photo_4.jpg");
         ImageView iv1 = findViewById(R.id.iv1);
-        Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
-        iv1.setImageBitmap(bitmap);
+        ImageView iv2 = findViewById(R.id.iv2);
+        ImageView iv3 = findViewById(R.id.iv3);
+        ImageView iv4 = findViewById(R.id.iv4);
+
+        File imageFile1 = new File("/sdcard/gallery_photo_4.jpg");
+        File imageFile2 = new File("/sdcard/gallery_photo_4.jpg");
+
+        Bitmap bitmap1 = BitmapFactory.decodeFile(imageFile1.getAbsolutePath());
+        Bitmap bitmap2 = BitmapFactory.decodeFile(imageFile2.getAbsolutePath());
+
+        iv1.setImageBitmap(bitmap1);
+        iv2.setImageBitmap(bitmap2);
+
+        int id_event = 3;
+
+        Intent myIntent = new Intent(PlusEventActivity.this, MainActivity.class);
+        myIntent.putExtra("event", id_event);
+        PlusEventActivity.this.startActivity(myIntent);
+
     }
 }

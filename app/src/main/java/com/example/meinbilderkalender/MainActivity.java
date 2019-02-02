@@ -36,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Intent myIntent = new Intent(MainActivity.this, PlusEventActivity.class);
+        MainActivity.this.startActivity(myIntent);
+
 
     }
 
