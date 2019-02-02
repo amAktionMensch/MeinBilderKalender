@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -26,6 +29,7 @@ public class DateTimeActivity extends AppCompatActivity {
     public String today ="";
 
     public TextView tv1;
+    public TextToSpeech textToSpeech;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +37,25 @@ public class DateTimeActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         task = intent.getStringExtra("event");
+
+        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status == TextToSpeech.SUCCESS) {
+                    int ttsLang = textToSpeech.setLanguage(Locale.GERMAN);
+
+                    if (ttsLang == TextToSpeech.LANG_MISSING_DATA
+                            || ttsLang == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("TTS", "The Language is not supported!");
+                    } else {
+                        Log.i("TTS", "Language Supported.");
+                    }
+                    Log.i("TTS", "Initialization success.");
+                } else {
+                    Toast.makeText(getApplicationContext(), "TTS Initialization failed!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         ImageView iv1 = findViewById(R.id.btnMorning);
         ImageView iv2 = findViewById(R.id.btnNoon);
@@ -84,6 +107,7 @@ public class DateTimeActivity extends AppCompatActivity {
 
 
     private boolean saveData(String time) {
+        int speechStatus = textToSpeech.speak(time, TextToSpeech.QUEUE_FLUSH, null);
         getDate();
         getDescription(time);
         DateFormat format = new SimpleDateFormat("hh:mm", Locale.GERMAN);
