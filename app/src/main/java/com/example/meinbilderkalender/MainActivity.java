@@ -21,7 +21,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.Set;
 
@@ -105,12 +107,88 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private boolean saveData() {
+    private boolean saveData(int task, String description, Date time) {
+        DateFormat format = new SimpleDateFormat("hh:mm", Locale.GERMAN);
         Context context = this;
         SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         Set<String> set = sharedPref.getStringSet(today, null);
-        //set.add()
+        /*if(set == null) {
+            set = new Set<String>() {
+                @Override
+                public int size() {
+                    return 0;
+                }
+
+                @Override
+                public boolean isEmpty() {
+                    return false;
+                }
+
+                @Override
+                public boolean contains(@androidx.annotation.Nullable Object o) {
+                    return false;
+                }
+
+                @androidx.annotation.NonNull
+                @Override
+                public Iterator<String> iterator() {
+                    return null;
+                }
+
+                @androidx.annotation.Nullable
+                @Override
+                public Object[] toArray() {
+                    return new Object[0];
+                }
+
+                @Override
+                public <T> T[] toArray(@androidx.annotation.Nullable T[] a) {
+                    return null;
+                }
+
+                @Override
+                public boolean add(String s) {
+                    return false;
+                }
+
+                @Override
+                public boolean remove(@androidx.annotation.Nullable Object o) {
+                    return false;
+                }
+
+                @Override
+                public boolean containsAll(@androidx.annotation.NonNull Collection<?> c) {
+                    return false;
+                }
+
+                @Override
+                public boolean addAll(@androidx.annotation.NonNull Collection<? extends String> c) {
+                    return false;
+                }
+
+                @Override
+                public boolean retainAll(@androidx.annotation.NonNull Collection<?> c) {
+                    return false;
+                }
+
+                @Override
+                public boolean removeAll(@androidx.annotation.NonNull Collection<?> c) {
+                    return false;
+                }
+
+                @Override
+                public void clear() {
+
+                }
+            }
+
+        }*/
+        set.add(Integer.toString(task));
+        set.add(time.toString());
+        set.add(description);
         SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putStringSet(today, set);
+        editor.commit();
         return true;
     }
     private void switchDate(Integer offset) throws ParseException {
