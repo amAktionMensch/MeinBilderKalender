@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,7 +21,7 @@ public class DateTimeActivity extends AppCompatActivity {
 
     public String task;
     public String description;
-    public String time;
+    public String time = "Morgens";
     public String today;
 
     public TextView tv1;
@@ -31,6 +32,18 @@ public class DateTimeActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         task = intent.getStringExtra("event");
+
+        ImageButton btnSave = findViewById(R.id.btnPlus);
+        btnSave.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if(saveData(time)) {
+                    Intent intent = new Intent(DateTimeActivity.this, MainActivity.class);
+                    intent.putExtra("date", today);
+                    DateTimeActivity.this.startActivity(intent);
+                }
+            }
+        });
 
        /* ImageView iv1 = findViewById(R.id.);
         ImageView iv2 = findViewById(R.id.);

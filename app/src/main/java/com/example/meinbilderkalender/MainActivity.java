@@ -56,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Intent intent = getIntent();
+        String date = intent.getStringExtra("date");
+
+
         //Configuration of DateForwardButton
         ImageButton btnDateForward = findViewById(R.id.btnDateForward);
         btnDateForward.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +92,12 @@ public class MainActivity extends AppCompatActivity {
         today = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
         //set current Date
         TextView txtSelectedDate = findViewById(R.id.txtSelectedDate);
-        txtSelectedDate.setText(new SimpleDateFormat (getString(R.string.dateFormat)).format(new Date()));
+
+        if(date != null) {
+            txtSelectedDate.setText(date);
+        } else {
+            txtSelectedDate.setText(new SimpleDateFormat (getString(R.string.dateFormat)).format(new Date()));
+        }
 
         //set Plus Button
         ImageButton btnPlus = findViewById(R.id.btnPlus);
@@ -150,9 +159,9 @@ public class MainActivity extends AppCompatActivity {
         Context context = this;
         SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
-        Set events = sharedPref.getStringSet(getString(R.string.dateFormat), null);
+        Set events = sharedPref.getStringSet(dateText.toString(), null);
 
-//        if (events != null) {
+//       if (events != null) {
         LinearLayout layout = findViewById(R.id.lytContent);
         layout.removeAllViews();
 //        for (int i = 1; i <= events.size(); i = i + 3) {
