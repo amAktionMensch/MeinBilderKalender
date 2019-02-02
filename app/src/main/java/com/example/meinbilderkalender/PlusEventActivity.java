@@ -78,7 +78,7 @@ public class PlusEventActivity extends AppCompatActivity {
     }
 
     public void forward() {
-        Intent myIntent = new Intent(PlusEventActivity.this, MainActivity.class);
+        Intent myIntent = new Intent(PlusEventActivity.this, DateTimeActivity.class);
         myIntent.putExtra("event", id_event);
         PlusEventActivity.this.startActivity(myIntent);
     }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,6 +34,9 @@ public class DateTimeActivity extends AppCompatActivity {
         Intent intent = getIntent();
         task = intent.getStringExtra("event");
 
+        ImageView iv1 = findViewById(R.id.btnMorning);
+        ImageView iv2 = findViewById(R.id.btnNoon);
+        ImageView iv3 = findViewById(R.id.btnEvening);
         ImageButton btnSave = findViewById(R.id.btnPlus);
         btnSave.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -51,7 +55,7 @@ public class DateTimeActivity extends AppCompatActivity {
 
         tv1 = findViewById(R.id.txtSelectedDate);
 
-       /* iv1.setOnClickListener(new View.OnClickListener(){
+       iv1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 time = "Morgens";
@@ -73,7 +77,7 @@ public class DateTimeActivity extends AppCompatActivity {
                 time = "Abends";
                 saveData(time);
             }
-        });*/
+        });
 
 
     }
