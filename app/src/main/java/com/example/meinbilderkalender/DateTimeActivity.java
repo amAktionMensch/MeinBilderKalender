@@ -149,18 +149,22 @@ public class DateTimeActivity extends AppCompatActivity {
     private boolean saveData(String time) {
         getDate();
         getDescription(time);
-        DateFormat format = new SimpleDateFormat("hh:mm", Locale.GERMAN);
+        TextView dateText = findViewById(R.id.txtSelectedDate);
         Context context = this;
         SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        Set<String> set = sharedPref.getStringSet(today, null);
+        Set<String> set = sharedPref.getStringSet(dateText.getText().toString(), null);
         if(set == null) {
             set = new HashSet<>();
         }
         set.add(task);
         set.add(description);
         set.add(time);
+        System.out.println("saving");
+        for (String s : set) {
+            System.out.println(s);
+        }
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putStringSet(today, set);
+        editor.putStringSet(dateText.getText().toString(), set);
         editor.commit();
 
         int speechStatus = textToSpeech.speak(description + " als Termin gespeichert!", TextToSpeech.QUEUE_FLUSH, null);
