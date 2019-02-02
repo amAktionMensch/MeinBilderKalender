@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Configuration of HelpButton
-        Button btnHelp = findViewById(R.id.btnHelp);
+        ImageButton btnHelp = findViewById(R.id.btnHelp);
         btnHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,9 +83,10 @@ public class MainActivity extends AppCompatActivity {
         today = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
         //set current Date
         TextView txtSelectedDate = findViewById(R.id.txtSelectedDate);
-        txtSelectedDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+        txtSelectedDate.setText(new SimpleDateFormat (getString(R.string.dateFormat)).format(new Date()));
+
         //set Plus Button
-        Button btnPlus = findViewById(R.id.btnPlus);
+        ImageButton btnPlus = findViewById(R.id.btnPlus);
         btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +94,14 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.startActivity(myIntent);
             }
         });
+
+
+        //load the content
+        try {
+            displayContent();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -106,18 +115,35 @@ public class MainActivity extends AppCompatActivity {
     }
     private void switchDate(Integer offset) throws ParseException {
 
-        System.out.println("Button pressed " + offset);
-
-
         TextView dateText = findViewById(R.id.txtSelectedDate);
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.GERMAN);
+        DateFormat format = new SimpleDateFormat(getString(R.string.dateFormat), Locale.GERMAN);
         Date oldDate = format.parse(dateText.getText().toString());
-        //Date newDate = new DateTime(date).minusDays(300).toDate();.
+
+
         Calendar cal = Calendar.getInstance();
         cal.setTime(oldDate);
         cal.add(Calendar.DATE, offset);
         dateText.setText(format.format(cal.getTime()));
     }
 
+    private void displayContent() throws ParseException {
+
+        TextView dateText = findViewById(R.id.txtSelectedDate);
+        DateFormat format = new SimpleDateFormat(String.valueOf(R.string.dateFormat), Locale.GERMAN);
+        Date selectedDate = format.parse(dateText.getText().toString());
+
+        Context context = this;
+        SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+        Set events = sharedPref.getStringSet(getString(R.string.dateFormat), null);
+
+        if (events != null) {
+            for (int i = 1; i <= events.size(); i = i + 3) {
+
+            }
+        }
+
+
+    }
 
 }
