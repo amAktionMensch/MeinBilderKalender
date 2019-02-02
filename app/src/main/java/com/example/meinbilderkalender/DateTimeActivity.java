@@ -122,7 +122,7 @@ public class DateTimeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 time = "Morgens";
-                saveData(time);
+                int speechStatus = textToSpeech.speak(time, TextToSpeech.QUEUE_FLUSH, null);
             }
         });
 
@@ -130,7 +130,7 @@ public class DateTimeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 time = "Mittags";
-                saveData(time);
+                int speechStatus = textToSpeech.speak(time, TextToSpeech.QUEUE_FLUSH, null);
             }
         });
 
@@ -138,7 +138,7 @@ public class DateTimeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 time = "Abends";
-                saveData(time);
+                int speechStatus = textToSpeech.speak(time, TextToSpeech.QUEUE_FLUSH, null);
             }
         });
 
@@ -147,7 +147,6 @@ public class DateTimeActivity extends AppCompatActivity {
 
 
     private boolean saveData(String time) {
-        int speechStatus = textToSpeech.speak(time, TextToSpeech.QUEUE_FLUSH, null);
         getDate();
         getDescription(time);
         DateFormat format = new SimpleDateFormat("hh:mm", Locale.GERMAN);
@@ -163,6 +162,8 @@ public class DateTimeActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putStringSet(today, set);
         editor.commit();
+
+        int speechStatus = textToSpeech.speak(description + " als Termin gespeichert!", TextToSpeech.QUEUE_FLUSH, null);
         return true;
     }
 
@@ -199,6 +200,8 @@ public class DateTimeActivity extends AppCompatActivity {
         cal.setTime(oldDate);
         cal.add(Calendar.DATE, offset);
         dateText.setText(format.format(cal.getTime()));
+
+        int speechStatus = textToSpeech.speak(dateText.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
     }
 
 }

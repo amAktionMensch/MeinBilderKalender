@@ -60,7 +60,7 @@ public class PlusEventActivity extends AppCompatActivity {
                 id_event = "R.drawable.bowling";
                 forward();
 
-                int speechStatus = textToSpeech.speak(id_event, TextToSpeech.QUEUE_FLUSH, null);
+                int speechStatus = textToSpeech.speak("Bowling", TextToSpeech.QUEUE_FLUSH, null);
 
                 if (speechStatus == TextToSpeech.ERROR) {
                     Log.e("TTS", "Error in converting Text to Speech!");
