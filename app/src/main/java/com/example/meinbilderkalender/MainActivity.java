@@ -14,9 +14,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
-
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -48,9 +51,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    Toast.makeText(getApplicationContext(), "läuft", Toast.LENGTH_SHORT).show();
+                    switchDate(1);
                 } catch (ActivityNotFoundException activityException) {
                     Log.e("Calling a Phone Number", "Call failed", activityException);
+                } catch (ParseException e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        //Configuration of DateBackwardButton
+        ImageButton btnDateBackward = findViewById(R.id.btnDateBackward);
+        btnDateBackward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    switchDate(-1);
+                } catch (ActivityNotFoundException activityException) {
+                    Log.e("Calling a Phone Number", "Call failed", activityException);
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -68,8 +88,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
 
-
+    private void switchDate(Integer offset) throws ParseException {
+        TextView oldDateText = findViewById(R.id.txtSelectedDate);
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.GERMAN);
+        Date date = format.parse(oldDateText.toString());
+        //Date newDate = new DateTime(date).minusDays(300).toDate();.
+        //LocalDate newDate = LocalDate.
     }
 
 
