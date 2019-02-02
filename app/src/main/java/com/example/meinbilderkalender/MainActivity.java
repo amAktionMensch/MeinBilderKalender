@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.autofill.AutofillValue;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,13 +32,26 @@ public class MainActivity extends AppCompatActivity {
         btnHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    try {
-                        Intent callIntent = new Intent(Intent.ACTION_CALL);
-                        callIntent.setData(Uri.parse("tel:"+txtPhn));
-                        startActivity(callIntent);
-                    } catch (ActivityNotFoundException activityException) {
-                        Log.e("Calling a Phone Number", "Call failed", activityException);
-                    }
+                try {
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:"+txtPhn));
+                    startActivity(callIntent);
+                } catch (ActivityNotFoundException activityException) {
+                    Log.e("Calling a Phone Number", "Call failed", activityException);
+                }
+            }
+        });
+
+        //Configuration of DateForwardButton
+        ImageButton btnDateForward = findViewById(R.id.btnDateForward);
+        btnDateForward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Toast.makeText(getApplicationContext(), "läuft", Toast.LENGTH_SHORT).show();
+                } catch (ActivityNotFoundException activityException) {
+                    Log.e("Calling a Phone Number", "Call failed", activityException);
+                }
             }
         });
 
