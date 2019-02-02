@@ -19,6 +19,10 @@ public class PlusEventActivity extends AppCompatActivity {
     public String id_event;
 
     private TextToSpeech textToSpeech;
+    public boolean firstClick1 = true;
+    public boolean firstClick2 = true;
+    public boolean firstClick3 = true;
+    public boolean firstClick4 = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +61,13 @@ public class PlusEventActivity extends AppCompatActivity {
         iv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                id_event = "R.drawable.bowling";
-                forward();
-
-                int speechStatus = textToSpeech.speak("Bowling", TextToSpeech.QUEUE_FLUSH, null);
-
-                if (speechStatus == TextToSpeech.ERROR) {
-                    Log.e("TTS", "Error in converting Text to Speech!");
+                if(firstClick1) {
+                    int speechStatus = textToSpeech.speak("Bowling spielen", TextToSpeech.QUEUE_FLUSH, null);
+                    firstClick1 = false;
+                    firstClickTrue();
+                } else {
+                    id_event = "R.drawable.bowling";
+                    forward();
                 }
             }
         });
@@ -71,24 +75,42 @@ public class PlusEventActivity extends AppCompatActivity {
         iv2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                id_event = "R.drawable.roa";
-                forward();
+                if(firstClick2) {
+                    int speechStatus = textToSpeech.speak("Rikscha fahren", TextToSpeech.QUEUE_FLUSH, null);
+                    firstClick2 = false;
+                    firstClickTrue();
+                } else {
+                    id_event = "R.drawable.roa";
+                    forward();
+                }
             }
         });
 
         iv3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                id_event = "R.drawable.cake";
-                forward();
+                if(firstClick3) {
+                    int speechStatus = textToSpeech.speak("Geburtstagsfeier", TextToSpeech.QUEUE_FLUSH, null);
+                    firstClick3 = false;
+                    firstClickTrue();
+                } else {
+                    id_event = "R.drawable.cake";
+                    forward();
+                }
             }
         });
 
         iv4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                id_event = "R.drawable.chess";
-                forward();
+                if(firstClick4) {
+                    int speechStatus = textToSpeech.speak("Spiele-Treffen", TextToSpeech.QUEUE_FLUSH, null);
+                    firstClickTrue();
+                    firstClick4 = false;
+                } else {
+                    id_event = "R.drawable.chess";
+                    forward();
+                }
             }
         });
     }
@@ -100,6 +122,13 @@ public class PlusEventActivity extends AppCompatActivity {
         //onDestroy();
     }
 
+    public void firstClickTrue() {
+        firstClick1 = true;
+        firstClick2 = true;
+        firstClick3 = true;
+        firstClick4 = true;
+        return;
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();
