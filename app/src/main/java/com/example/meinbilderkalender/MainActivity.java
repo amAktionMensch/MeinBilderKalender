@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean firstClickForward = true;
     public boolean firstClickBack = true;
     public boolean firstClickHelp = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         btnHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(firstClickHelp) {
+                if (firstClickHelp) {
                     int speechStatus = textToSpeech.speak("Betreuer anrufen.", TextToSpeech.QUEUE_FLUSH, null);
                     firstClickTrue();
                     firstClickHelp = false;
@@ -97,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         btnDateForward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(firstClickForward) {
+                if (firstClickForward) {
                     int speechStatus = textToSpeech.speak("Ein Tag vorwärts.", TextToSpeech.QUEUE_FLUSH, null);
                     firstClickTrue();
                     firstClickForward = false;
@@ -118,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         btnDateBackward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(firstClickBack) {
+                if (firstClickBack) {
                     int speechStatus = textToSpeech.speak("Ein Tag zurück.", TextToSpeech.QUEUE_FLUSH, null);
                     firstClickTrue();
                     firstClickBack = false;
@@ -137,10 +138,10 @@ public class MainActivity extends AppCompatActivity {
         //set current Date
         TextView txtSelectedDate = findViewById(R.id.txtSelectedDate);
 
-        if(date != null) {
+        if (date != null) {
             txtSelectedDate.setText(date);
         } else {
-            txtSelectedDate.setText(new SimpleDateFormat (getString(R.string.dateFormat)).format(new Date()));
+            txtSelectedDate.setText(new SimpleDateFormat(getString(R.string.dateFormat)).format(new Date()));
         }
 
         //set Plus Button
@@ -149,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(firstClickAdd) {
+                if (firstClickAdd) {
                     int speechStatus = textToSpeech.speak("Neuen Termin hinzufügen.", TextToSpeech.QUEUE_FLUSH, null);
                     firstClickTrue();
                     firstClickAdd = false;
@@ -161,6 +162,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        Context context = this;
+        SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.clear();
+        editor.commit();
         //load the content
         try {
             displayContent();
@@ -170,23 +177,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private boolean saveData(int task, String description, Date time) {
-        DateFormat format = new SimpleDateFormat("hh:mm", Locale.GERMAN);
-        Context context = this;
-        SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        Set<String> set = sharedPref.getStringSet(today, null);
-        if(set == null) {
-            set = new HashSet<>();
-
-        }
-        set.add(Integer.toString(task));
-        set.add(time.toString());
-        set.add(description);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putStringSet(today, set);
-        editor.commit();
-        return true;
-    }
 
     private void switchDate(Integer offset) throws ParseException {
 
@@ -214,29 +204,25 @@ public class MainActivity extends AppCompatActivity {
         Set<String> events = sharedPref.getStringSet(dateText.getText().toString(), null);
 
 
+        if (events != null) {
+            String[] eventArray = events.toArray(new String[events.size()]);
+            System.out.println("length: " + eventArray.length);
+            LinearLayout layout = findViewById(R.id.lytContent);
+            layout.removeAllViews();
+            for (int i = 0; i < eventArray.length; i = i + 3) {
 
-       if (events != null) {
-           String[] eventArray = events.toArray(new String[events.size()]);
-           System.out.println("length: "+eventArray.length);
-        LinearLayout layout = findViewById(R.id.lytContent);
-        layout.removeAllViews();
-       for (int i = 0; i < eventArray.length; i = i + 3) {
+                System.out.println("reading");
+                System.out.println(i);
+                System.out.println(eventArray[i]);
+                System.out.println(eventArray[i + 1]);
 
-           System.out.println("reading");
-           System.out.println(i);
-           System.out.println(eventArray[i]);
-           System.out.println(eventArray[i+1]);
-           System.out.println(eventArray[i+2]);
-
-           //System.out.println(eventArray.get(i).toString());
                 //ImageView Setup
                 ImageView imageView = new ImageView(this);
                 imageView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
 
-
-
-                imageView.setContentDescription("Fahrradfahren");
-                imageView.setBackgroundResource(R.drawable.bike);
+                //hier muß noch eventArray[i+2] verwendet werden um die Icons in die richtige Reihenfolge und die richtige Höhe zu bringen
+                imageView.setBackgroundResource(R.drawable.cake);
+                imageView.setContentDescription(eventArray[i+1]);
 
                 layout.addView(imageView);
             }
@@ -245,14 +231,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private View.OnClickListener readDescription(){
-            return new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+    private View.OnClickListener readDescription() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                }
-            };
-    };
+            }
+        };
+    }
+
+    ;
 
 
     private void firstClickTrue() {

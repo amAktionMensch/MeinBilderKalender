@@ -156,6 +156,7 @@ public class DateTimeActivity extends AppCompatActivity {
         if(set == null) {
             set = new HashSet<>();
         }
+        System.out.println("These are the task: "+ task + ", the description: "+description+", and the time:" + time);
         set.add(task);
         set.add(description);
         set.add(time);
