@@ -20,12 +20,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
+        <ImageButton
+            android:id="@+id/btnDateBackward"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/arrow_left" />
+
         <ImageButton
             android:id="@+id/btnDateForward"
             android:layout_width="50dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="55dp"
             android:src="@drawable/arrow_right" />
-
 
 
     </LinearLayout>
@@ -73,7 +80,7 @@
 
         <Button
             android:id="@+id/btnPlus"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Plus" />
