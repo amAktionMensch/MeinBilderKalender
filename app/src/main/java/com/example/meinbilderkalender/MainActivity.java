@@ -18,6 +18,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         //set current Date
         TextView txtSelectedDate = findViewById(R.id.txtSelectedDate);
-        txtSelectedDate.setText(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()));
+        txtSelectedDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
         //set Plus Button
         Button btnPlus = findViewById(R.id.btnPlus);
         btnPlus.setOnClickListener(new View.OnClickListener() {
@@ -91,11 +92,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void switchDate(Integer offset) throws ParseException {
-        TextView oldDateText = findViewById(R.id.txtSelectedDate);
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.GERMAN);
-        Date date = format.parse(oldDateText.toString());
+
+        System.out.println("Button pressed " + offset);
+
+
+        TextView dateText = findViewById(R.id.txtSelectedDate);
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.GERMAN);
+        Date oldDate = format.parse(dateText.getText().toString());
         //Date newDate = new DateTime(date).minusDays(300).toDate();.
-        //LocalDate newDate = LocalDate.
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(oldDate);
+        cal.add(Calendar.DATE, offset);
+        dateText.setText(format.format(cal.getTime()));
     }
 
 
