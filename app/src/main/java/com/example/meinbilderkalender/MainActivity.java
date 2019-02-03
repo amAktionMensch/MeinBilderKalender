@@ -147,11 +147,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         today = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+
         //set current Date
-        TextView txtSelectedDate = findViewById(R.id.txtSelectedDate);
+        final TextView txtSelectedDate = findViewById(R.id.txtSelectedDate);
         txtSelectedDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int speechStatus = textToSpeech.speak(txtSelectedDate.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
 
             }
         });
@@ -298,9 +300,35 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
-    ;
+
+    private void getSchedule() {
+        TextView dateText = findViewById(R.id.txtSelectedDate);
+
+        Context context = this;
+        SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
 
+        Set<String> events = sharedPref.getStringSet(dateText.getText().toString(), null);
+
+        //new idea
+        if (events != null) {
+            String[] eventArray = events.toArray(new String[events.size()]);
+            System.out.println("length: " + eventArray.length);
+            LinearLayout layout = findViewById(R.id.lytContent);
+            layout.removeAllViews();
+            for (int i = 0; i < eventArray.length; i++) {
+                String task = eventArray[i].substring(0, eventArray[i].indexOf(";"));
+                String description = eventArray[i].substring(eventArray[i].indexOf(";") + 1, eventArray[i].indexOf("+"));
+                String time = eventArray[i].substring(eventArray[i].indexOf("+") + 1);
+                System.out.println("Task of i=" + i + " : " + task);
+                System.out.println("Descrip of i=" + i + " : " + description);
+                System.out.println("Time of i=" + i + " : " + time);
+
+
+
+            }
+        }
+    }
     private void firstClickTrue() {
         firstClickAdd = true;
         firstClickBack = true;
