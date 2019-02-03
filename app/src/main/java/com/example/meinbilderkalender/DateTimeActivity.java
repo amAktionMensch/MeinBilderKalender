@@ -40,6 +40,7 @@ public class DateTimeActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         task = intent.getStringExtra("event");
+        description = intent.getStringExtra("description");
 
         textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
@@ -153,7 +154,15 @@ public class DateTimeActivity extends AppCompatActivity {
         Context context = this;
         SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         Set<String> set = sharedPref.getStringSet(dateText.getText().toString(), null);
+
+        //new idea
         if(set == null) {
+            set = new HashSet<>();
+        }
+        set.add(task + ";" + description + "+" + time);
+        System.out.println("Added to set of " + dateText.getText().toString() + "with content: " + task + ";" + description + ";" + time);
+        //old idea
+        /*if(set == null) {
             set = new HashSet<>();
         }
         System.out.println("These are the task: "+ task + ", the description: "+description+", and the time:" + time);
@@ -163,12 +172,12 @@ public class DateTimeActivity extends AppCompatActivity {
         System.out.println("saving");
         for (String s : set) {
             System.out.println(s);
-        }
+        }*/
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putStringSet(dateText.getText().toString(), set);
         editor.commit();
 
-        int speechStatus = textToSpeech.speak(description + " als Termin gespeichert!", TextToSpeech.QUEUE_FLUSH, null);
+        int speechStatus = textToSpeech.speak(description + " am " + today + " " + time + " gespeichert!", TextToSpeech.QUEUE_FLUSH, null);
         return true;
     }
 
@@ -186,7 +195,7 @@ public class DateTimeActivity extends AppCompatActivity {
             description = "Rikscha fahren am ";
         }
 
-        description = description + " " + today + " " + time;
+        description = description;
         return true;
     }
 

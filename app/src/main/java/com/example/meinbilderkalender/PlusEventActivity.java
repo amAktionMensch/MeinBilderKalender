@@ -24,6 +24,8 @@ public class PlusEventActivity extends AppCompatActivity {
     public boolean firstClick3 = true;
     public boolean firstClick4 = true;
 
+    public String description = "Termin";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,11 +64,12 @@ public class PlusEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(firstClick1) {
-                    int speechStatus = textToSpeech.speak("Bowling spielen", TextToSpeech.QUEUE_FLUSH, null);
-                    firstClick1 = false;
+                    description = "Bowling spielen";
+                    int speechStatus = textToSpeech.speak(description, TextToSpeech.QUEUE_FLUSH, null);
                     firstClickTrue();
+                    firstClick1 = false;
                 } else {
-                    id_event = "R.drawable.bowling";
+                    id_event = "1";
                     forward();
                 }
             }
@@ -76,11 +79,12 @@ public class PlusEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(firstClick2) {
-                    int speechStatus = textToSpeech.speak("Rikscha fahren", TextToSpeech.QUEUE_FLUSH, null);
-                    firstClick2 = false;
+                    description = "Rikscha fahren";
+                    int speechStatus = textToSpeech.speak(description, TextToSpeech.QUEUE_FLUSH, null);
                     firstClickTrue();
+                    firstClick2 = false;
                 } else {
-                    id_event = "R.drawable.roa";
+                    id_event = "2";
                     forward();
                 }
             }
@@ -90,11 +94,12 @@ public class PlusEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(firstClick3) {
-                    int speechStatus = textToSpeech.speak("Geburtstagsfeier", TextToSpeech.QUEUE_FLUSH, null);
-                    firstClick3 = false;
+                    description = "Geburtstagsfeier";
+                    int speechStatus = textToSpeech.speak(description, TextToSpeech.QUEUE_FLUSH, null);
                     firstClickTrue();
+                    firstClick3 = false;
                 } else {
-                    id_event = "R.drawable.cake";
+                    id_event = "3";
                     forward();
                 }
             }
@@ -104,11 +109,12 @@ public class PlusEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(firstClick4) {
-                    int speechStatus = textToSpeech.speak("Spiele-Treffen", TextToSpeech.QUEUE_FLUSH, null);
+                    description = "Spiele-Treffen";
+                    int speechStatus = textToSpeech.speak(description, TextToSpeech.QUEUE_FLUSH, null);
                     firstClickTrue();
                     firstClick4 = false;
                 } else {
-                    id_event = "R.drawable.chess";
+                    id_event = "4";
                     forward();
                 }
             }
@@ -118,6 +124,7 @@ public class PlusEventActivity extends AppCompatActivity {
     public void forward() {
         Intent myIntent = new Intent(PlusEventActivity.this, DateTimeActivity.class);
         myIntent.putExtra("event", id_event);
+        myIntent.putExtra("description", description);
         PlusEventActivity.this.startActivity(myIntent);
         //onDestroy();
     }

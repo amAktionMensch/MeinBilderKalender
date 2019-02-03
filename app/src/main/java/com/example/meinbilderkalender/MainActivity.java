@@ -110,6 +110,12 @@ public class MainActivity extends AppCompatActivity {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
+                    try {
+                        displayContent();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
                 }
             }
         });
@@ -131,12 +137,24 @@ public class MainActivity extends AppCompatActivity {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
+                    try {
+                        displayContent();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
                 }
             }
         });
         today = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
         //set current Date
         TextView txtSelectedDate = findViewById(R.id.txtSelectedDate);
+        txtSelectedDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         if (date != null) {
             txtSelectedDate.setText(date);
@@ -165,9 +183,9 @@ public class MainActivity extends AppCompatActivity {
         Context context = this;
         SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.clear();
-        editor.commit();
+        //SharedPreferences.Editor editor = sharedPref.edit();
+        //editor.clear();
+        //editor.commit();
         //load the content
         try {
             displayContent();
@@ -203,8 +221,47 @@ public class MainActivity extends AppCompatActivity {
 
         Set<String> events = sharedPref.getStringSet(dateText.getText().toString(), null);
 
+        //new idea
+        if(events != null) {
+            String[] eventArray = events.toArray(new String[events.size()]);
+            System.out.println("length: " + eventArray.length);
+            LinearLayout layout = findViewById(R.id.lytContent);
+            layout.removeAllViews();
+            for (int i = 0; i < eventArray.length; i++) {
+                String task = eventArray[i].substring(0, eventArray[i].indexOf(";"));
+                String description = eventArray[i].substring(eventArray[i].indexOf(";")+1, eventArray[i].indexOf("+"));
+                String time = eventArray[i].substring(eventArray[i].indexOf("+")+1);
+                System.out.println("Task of i=" + i + " : " + task);
+                System.out.println("Descrip of i=" + i + " : " + description);
+                System.out.println("Time of i=" + i + " : " + time);
 
-        if (events != null) {
+
+                ImageView imageView = new ImageView(this);
+                imageView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+
+                if(task.equals("1")) {
+                    imageView.setBackgroundResource(R.drawable.bowling);
+                }
+                if(task.equals("2")) {
+                    imageView.setBackgroundResource(R.drawable.roa);
+                }
+                if(task.equals("3")) {
+                    imageView.setBackgroundResource(R.drawable.cake);
+                }
+                if(task.equals("4")) {
+                    imageView.setBackgroundResource(R.drawable.chess);
+                }
+                imageView.setContentDescription(description);
+
+                layout.addView(imageView);
+            }
+        } else {
+            LinearLayout layout = findViewById(R.id.lytContent);
+            layout.removeAllViews();
+        }
+
+        //old idea
+        /*if (events != null) {
             String[] eventArray = events.toArray(new String[events.size()]);
             System.out.println("length: " + eventArray.length);
             LinearLayout layout = findViewById(R.id.lytContent);
@@ -227,6 +284,7 @@ public class MainActivity extends AppCompatActivity {
                 layout.addView(imageView);
             }
         }
+        */
 
 
     }
