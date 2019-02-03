@@ -232,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
 
         Set<String> events = sharedPref.getStringSet(dateText.getText().toString(), null);
 
-        //System.out.println("Events: "+events);
+        System.out.println("Events: "+events);
         //new idea
         if(events != null) {
             String[] eventArray = events.toArray(new String[events.size()]);
@@ -242,9 +242,9 @@ public class MainActivity extends AppCompatActivity {
                 String description = eventArray[i].substring(eventArray[i].indexOf(";")+1, eventArray[i].indexOf("+"));
                 String time = eventArray[i].substring(eventArray[i].indexOf("+")+1);
                 description = time + " :" + description;
-                //System.out.println("Task of i=" + i + " : " + task);
-                //System.out.println("Descrip of i=" + i + " : " + description);
-                //System.out.println("Time of i=" + i + " : " + time);
+                System.out.println("Task of i=" + i + " : " + task);
+                System.out.println("Descrip of i=" + i + " : " + description);
+                System.out.println("Time of i=" + i + " : " + time);
 
 
                 if (time.equals("Morgens"))
@@ -260,7 +260,6 @@ public class MainActivity extends AppCompatActivity {
                     layout = findViewById(R.id.lytContentEvening);
                 }
 
-                //layout.removeAllViews();
                 final ImageView imageView = new ImageView(this);
                 imageView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
 
@@ -286,6 +285,9 @@ public class MainActivity extends AppCompatActivity {
                 imageView.setMaxWidth(50);
                 imageView.setMaxHeight(50);
 
+                System.out.println("loop:" +i);
+                System.out.println("layout:" +layout);
+                System.out.println("image:" +imageView);
                 if (layout != null)
                     layout.addView(imageView);
             }
@@ -313,7 +315,7 @@ public class MainActivity extends AppCompatActivity {
             int speechStatus = textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null);
             return;
         }
-        ImageView iv1 = findViewById(R.id.imgMorning);
+/*        ImageView iv1 = findViewById(R.id.imgMorning);
         ImageView iv2 = findViewById(R.id.imgNoon);
         ImageView iv3 = findViewById(R.id.imgEvening);
 
@@ -330,6 +332,7 @@ public class MainActivity extends AppCompatActivity {
         if(text3.length() > 2) {
             int speechStatus = textToSpeech.speak(text3, TextToSpeech.QUEUE_FLUSH, null);
         }
+*/
     }
 
     private void firstClickTrue() {
