@@ -308,21 +308,27 @@ public class MainActivity extends AppCompatActivity {
 
         Set<String> events = sharedPref.getStringSet(dateText.getText().toString(), null);
 
-        //new idea
-        if (events != null) {
-            String[] eventArray = events.toArray(new String[events.size()]);
-
-            for (int i = 0; i < eventArray.length; i++) {
-                String task = eventArray[i].substring(0, eventArray[i].indexOf(";"));
-                String description = eventArray[i].substring(eventArray[i].indexOf(";") + 1, eventArray[i].indexOf("+"));
-                String time = eventArray[i].substring(eventArray[i].indexOf("+") + 1);
-                System.out.println("Descrip of i=" + i + " : " + description);
-                System.out.println("Time of i=" + i + " : " + time);
-
-            }
-        } else {
+        if(events == null) {
             String text = "Für den " + dateText.getText().toString() + " sind keine Termine vorhanden.";
             int speechStatus = textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+            return;
+        }
+        ImageView iv1 = findViewById(R.id.imgMorning);
+        ImageView iv2 = findViewById(R.id.imgNoon);
+        ImageView iv3 = findViewById(R.id.imgEvening);
+
+        String text1 = iv1.getContentDescription().toString();
+        String text2 = iv2.getContentDescription().toString();
+        String text3 = iv3.getContentDescription().toString();
+
+        if(text1.length() > 2) {
+            int speechStatus = textToSpeech.speak(text1, TextToSpeech.QUEUE_FLUSH, null);
+        }
+        if(text2.length() > 2) {
+            int speechStatus = textToSpeech.speak(text2, TextToSpeech.QUEUE_FLUSH, null);
+        }
+        if(text3.length() > 2) {
+            int speechStatus = textToSpeech.speak(text3, TextToSpeech.QUEUE_FLUSH, null);
         }
     }
 
