@@ -274,14 +274,19 @@ public class MainActivity extends AppCompatActivity {
             }
         } else {
             LinearLayout layout = findViewById(R.id.lytContentMorning);
-            layout.removeAllViews();
+            //layout.removeAllViews();
             layout.addView(findViewById(R.id.imgMorning));
+            ImageView iv = findViewById(R.id.imgMorning);
+            iv.setImageResource(android.R.color.transparent);
             layout = findViewById(R.id.lytContentNoon);
-            layout.removeAllViews();
+            //layout.removeAllViews();
             layout.addView(findViewById(R.id.imgNoon));
+            iv = findViewById(R.id.imgNoon);
+            iv.setImageResource(android.R.color.transparent);
             layout = findViewById(R.id.lytContentEvening);
-            layout.removeAllViews();
             layout.addView(findViewById(R.id.imgEvening));
+            iv = findViewById(R.id.imgMorning);
+            iv.setImageResource(android.R.color.transparent);
         }
 
         //old idea
