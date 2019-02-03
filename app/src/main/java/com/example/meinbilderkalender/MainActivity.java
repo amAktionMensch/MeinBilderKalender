@@ -223,12 +223,11 @@ public class MainActivity extends AppCompatActivity {
 
         Set<String> events = sharedPref.getStringSet(dateText.getText().toString(), null);
 
+        System.out.println("Events: "+events);
         //new idea
         if(events != null) {
             String[] eventArray = events.toArray(new String[events.size()]);
-            System.out.println("length: " + eventArray.length);
-            LinearLayout layout = findViewById(R.id.lytContent);
-            layout.removeAllViews();
+
             for (int i = 0; i < eventArray.length; i++) {
                 String task = eventArray[i].substring(0, eventArray[i].indexOf(";"));
                 String description = eventArray[i].substring(eventArray[i].indexOf(";")+1, eventArray[i].indexOf("+"));
@@ -237,7 +236,22 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Descrip of i=" + i + " : " + description);
                 System.out.println("Time of i=" + i + " : " + time);
 
+                System.out.println("length: " + eventArray.length);
+                LinearLayout layout = null;
+                if (time.equals("Morgens"))
+                {
+                    layout = findViewById(R.id.lytContentMorning);
+                }
+                else if (time.equals("Mittags"))
+                {
+                    layout = findViewById(R.id.lytContentNoon);
+                }
+                else if (time.equals("Abends"))
+                {
+                    layout = findViewById(R.id.lytContentEvening);
+                }
 
+                //layout.removeAllViews();
                 ImageView imageView = new ImageView(this);
                 imageView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
 
@@ -255,11 +269,19 @@ public class MainActivity extends AppCompatActivity {
                 }
                 imageView.setContentDescription(description);
 
-                layout.addView(imageView);
+                if (layout != null)
+                    layout.addView(imageView);
             }
         } else {
-            LinearLayout layout = findViewById(R.id.lytContent);
+            LinearLayout layout = findViewById(R.id.lytContentMorning);
             layout.removeAllViews();
+            layout.addView(findViewById(R.id.imgMorning));
+            layout = findViewById(R.id.lytContentNoon);
+            layout.removeAllViews();
+            layout.addView(findViewById(R.id.imgNoon));
+            layout = findViewById(R.id.lytContentEvening);
+            layout.removeAllViews();
+            layout.addView(findViewById(R.id.imgEvening));
         }
 
         //old idea

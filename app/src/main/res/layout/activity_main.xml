@@ -66,17 +66,56 @@
         app:srcCompat="@drawable/call" />
 
     <LinearLayout
-        android:id="@+id/lytContent"
+        android:id="@+id/lytContentMorning"
         android:layout_width="395dp"
-        android:layout_height="527dp"
+        android:layout_height="177dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDateBackward" >
+
+        <ImageView
+            android:id="@+id/imgMorning"
+            android:layout_width="47dp"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/morning_smaller" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lytContentNoon"
+        android:layout_width="395dp"
+        android:layout_height="137dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/lytContentMorning"
+        tools:layout_editor_absoluteX="8dp">
+
+        <ImageView
+            android:id="@+id/imgNoon"
+            android:layout_width="51dp"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/noon_smaller" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lytContentEvening"
+        android:layout_width="395dp"
+        android:layout_height="182dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/btnPlus"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnDateBackward"/>
+        app:layout_constraintBottom_toTopOf="@+id/btnHelp"
+        app:layout_constraintTop_toBottomOf="@+id/lytContentNoon"
+        tools:layout_editor_absoluteX="8dp">
+
+        <ImageView
+            android:id="@+id/imgEvening"
+            android:layout_width="42dp"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/evening_smaller" />
+    </LinearLayout>
 
 
 </android.support.constraint.ConstraintLayout>
