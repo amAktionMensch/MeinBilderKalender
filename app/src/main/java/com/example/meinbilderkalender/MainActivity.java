@@ -217,6 +217,22 @@ public class MainActivity extends AppCompatActivity {
 
         TextView dateText = findViewById(R.id.txtSelectedDate);
 
+        LinearLayout layout = findViewById(R.id.lytContentMorning);
+        layout.removeAllViews();
+            /*layout.addView(findViewById(R.id.imgMorning));
+            ImageView iv = findViewById(R.id.imgMorning);
+            iv.setImageResource(android.R.color.transparent);*/
+        layout = findViewById(R.id.lytContentNoon);
+        layout.removeAllViews();
+            /*layout.addView(findViewById(R.id.imgNoon));
+            iv = findViewById(R.id.imgNoon);
+            iv.setImageResource(android.R.color.transparent);*/
+        layout = findViewById(R.id.lytContentEvening);
+        layout.removeAllViews();
+            /*layout.addView(findViewById(R.id.imgEvening));
+            iv = findViewById(R.id.imgMorning);
+            iv.setImageResource(android.R.color.transparent);*/
+
         Context context = this;
         SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
@@ -236,19 +252,21 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Descrip of i=" + i + " : " + description);
                 System.out.println("Time of i=" + i + " : " + time);
 
-                System.out.println("length: " + eventArray.length);
-                LinearLayout layout = null;
+
                 if (time.equals("Morgens"))
                 {
                     layout = findViewById(R.id.lytContentMorning);
+                    System.out.println("adding to morning");
                 }
                 else if (time.equals("Mittags"))
                 {
                     layout = findViewById(R.id.lytContentNoon);
+                    System.out.println("adding to noon");
                 }
                 else if (time.equals("Abends"))
                 {
                     layout = findViewById(R.id.lytContentEvening);
+                    System.out.println("adding to evening");
                 }
 
                 //layout.removeAllViews();
@@ -268,25 +286,14 @@ public class MainActivity extends AppCompatActivity {
                     imageView.setBackgroundResource(R.drawable.chess);
                 }
                 imageView.setContentDescription(description);
+                imageView.setMaxWidth(50);
+                imageView.setMaxHeight(50);
 
                 if (layout != null)
                     layout.addView(imageView);
             }
         } else {
-            LinearLayout layout = findViewById(R.id.lytContentMorning);
-            //layout.removeAllViews();
-            layout.addView(findViewById(R.id.imgMorning));
-            ImageView iv = findViewById(R.id.imgMorning);
-            iv.setImageResource(android.R.color.transparent);
-            layout = findViewById(R.id.lytContentNoon);
-            //layout.removeAllViews();
-            layout.addView(findViewById(R.id.imgNoon));
-            iv = findViewById(R.id.imgNoon);
-            iv.setImageResource(android.R.color.transparent);
-            layout = findViewById(R.id.lytContentEvening);
-            layout.addView(findViewById(R.id.imgEvening));
-            iv = findViewById(R.id.imgMorning);
-            iv.setImageResource(android.R.color.transparent);
+
         }
 
         //old idea

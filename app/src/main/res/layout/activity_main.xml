@@ -65,56 +65,81 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/call" />
 
+    <ImageView
+        android:id="@+id/imgMorning"
+        android:layout_width="47dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/lytContentMorning"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDateBackward"
+        app:srcCompat="@drawable/morning_smaller" />
+
     <LinearLayout
         android:id="@+id/lytContentMorning"
         android:layout_width="395dp"
         android:layout_height="177dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
         android:layout_marginTop="8dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnDateBackward" >
+        app:layout_constraintTop_toBottomOf="@+id/btnDateBackward">
 
-        <ImageView
-            android:id="@+id/imgMorning"
-            android:layout_width="47dp"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/morning_smaller" />
+
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgNoon"
+        android:layout_width="51dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/lytContentNoon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgMorning"
+        app:srcCompat="@drawable/noon_smaller" />
 
     <LinearLayout
         android:id="@+id/lytContentNoon"
         android:layout_width="395dp"
         android:layout_height="137dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
         android:layout_marginTop="8dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/lytContentMorning"
-        tools:layout_editor_absoluteX="8dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lytContentMorning">
 
-        <ImageView
-            android:id="@+id/imgNoon"
-            android:layout_width="51dp"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/noon_smaller" />
+
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgEvening"
+        android:layout_width="42dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnPlus"
+        app:layout_constraintEnd_toStartOf="@+id/lytContentEvening"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/evening_smaller" />
 
     <LinearLayout
         android:id="@+id/lytContentEvening"
         android:layout_width="395dp"
         android:layout_height="182dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/btnHelp"
-        app:layout_constraintTop_toBottomOf="@+id/lytContentNoon"
-        tools:layout_editor_absoluteX="8dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lytContentNoon">
 
-        <ImageView
-            android:id="@+id/imgEvening"
-            android:layout_width="42dp"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/evening_smaller" />
     </LinearLayout>
 
 
