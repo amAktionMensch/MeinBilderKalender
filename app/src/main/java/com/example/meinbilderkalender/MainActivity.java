@@ -295,7 +295,14 @@ public class MainActivity extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                switch(v.getId()) {
+                    case R.id.txtSelectedDate:
+                        getSchedule();
+                        break;
+                    default:
+                        break;
 
+                }
             }
         };
     }
@@ -313,22 +320,21 @@ public class MainActivity extends AppCompatActivity {
         //new idea
         if (events != null) {
             String[] eventArray = events.toArray(new String[events.size()]);
-            System.out.println("length: " + eventArray.length);
-            LinearLayout layout = findViewById(R.id.lytContent);
-            layout.removeAllViews();
+
             for (int i = 0; i < eventArray.length; i++) {
                 String task = eventArray[i].substring(0, eventArray[i].indexOf(";"));
                 String description = eventArray[i].substring(eventArray[i].indexOf(";") + 1, eventArray[i].indexOf("+"));
                 String time = eventArray[i].substring(eventArray[i].indexOf("+") + 1);
-                System.out.println("Task of i=" + i + " : " + task);
                 System.out.println("Descrip of i=" + i + " : " + description);
                 System.out.println("Time of i=" + i + " : " + time);
 
-
-
             }
+        } else {
+            String text = "Für den " + dateText.getText().toString() + " sind keine Termine vorhanden.";
+            int speechStatus = textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null);
         }
     }
+
     private void firstClickTrue() {
         firstClickAdd = true;
         firstClickBack = true;
