@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int speechStatus = textToSpeech.speak(txtSelectedDate.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
-
+                getSchedule();
             }
         });
 
@@ -241,6 +241,7 @@ public class MainActivity extends AppCompatActivity {
                 String task = eventArray[i].substring(0, eventArray[i].indexOf(";"));
                 String description = eventArray[i].substring(eventArray[i].indexOf(";")+1, eventArray[i].indexOf("+"));
                 String time = eventArray[i].substring(eventArray[i].indexOf("+")+1);
+                description = time + " :" + description;
                 //System.out.println("Task of i=" + i + " : " + task);
                 //System.out.println("Descrip of i=" + i + " : " + description);
                 //System.out.println("Time of i=" + i + " : " + time);
@@ -260,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 //layout.removeAllViews();
-                ImageView imageView = new ImageView(this);
+                final ImageView imageView = new ImageView(this);
                 imageView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
 
                 if(task.equals("1")) {
@@ -276,6 +277,12 @@ public class MainActivity extends AppCompatActivity {
                     imageView.setBackgroundResource(R.drawable.chess);
                 }
                 imageView.setContentDescription(description);
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int speechStatus = textToSpeech.speak(imageView.getContentDescription().toString(), TextToSpeech.QUEUE_FLUSH, null);
+                    }
+                    });
                 imageView.setMaxWidth(50);
                 imageView.setMaxHeight(50);
 
@@ -291,24 +298,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private View.OnClickListener readDescription() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch(v.getId()) {
-                    case R.id.txtSelectedDate:
-                        getSchedule();
-                        break;
-                    default:
-                        break;
 
-                }
-            }
-        };
-    }
-
-
-    private void getSchedule() {
+    public void getSchedule() {
         TextView dateText = findViewById(R.id.txtSelectedDate);
 
         Context context = this;

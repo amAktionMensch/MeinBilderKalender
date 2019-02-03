@@ -33,6 +33,9 @@ public class DateTimeActivity extends AppCompatActivity {
 
     public TextView tv1;
     public TextToSpeech textToSpeech;
+
+    public boolean firstClick = true;
+    public boolean firstClickSave = true;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,28 +71,34 @@ public class DateTimeActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(saveData(time)) {
-                    Intent intent = new Intent(DateTimeActivity.this, MainActivity.class);
-                    intent.putExtra("date", today);
-                    DateTimeActivity.this.startActivity(intent);
+                if(firstClickSave) {
+                    int speechStatus = textToSpeech.speak("Termin am " + today + time + " speichern.", TextToSpeech.QUEUE_FLUSH, null);
+                    firstClickSave = false;
+                }else {
+
+                    if (saveData(time)) {
+                        Intent intent = new Intent(DateTimeActivity.this, MainActivity.class);
+                        intent.putExtra("date", today);
+                        DateTimeActivity.this.startActivity(intent);
+                    }
                 }
             }
         });
 
-        String date = intent.getStringExtra("date");
+        final String date = intent.getStringExtra("date");
         //Configuration of DateForwardButton
         ImageButton btnDateForward = findViewById(R.id.btnDateForward);
         btnDateForward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    switchDate(1);
-                } catch (ActivityNotFoundException activityException) {
-                    Log.e("Calling a Phone Number", "Call failed", activityException);
-                } catch (ParseException e){
-                    e.printStackTrace();
+                    try {
+                        switchDate(1);
+                    } catch (ActivityNotFoundException activityException) {
+                        Log.e("Calling a Phone Number", "Call failed", activityException);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
         });
 
         //Configuration of DateBackwardButton
