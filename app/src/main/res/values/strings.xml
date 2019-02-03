@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">WuW</string>
-    <string name="dateFormat">dd/MM/yy</string>
+    <string name="dateFormat">dd/MM/yyyy</string>
     <string name="preference_file_key">com.example.meinbilderkalender.PREFERENCE_FILE_KEY</string>
 </resources>
