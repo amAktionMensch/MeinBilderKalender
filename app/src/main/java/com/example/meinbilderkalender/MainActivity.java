@@ -218,20 +218,13 @@ public class MainActivity extends AppCompatActivity {
         TextView dateText = findViewById(R.id.txtSelectedDate);
 
         LinearLayout layout = findViewById(R.id.lytContentMorning);
+
+        //clear all Layouts for current date
         layout.removeAllViews();
-            /*layout.addView(findViewById(R.id.imgMorning));
-            ImageView iv = findViewById(R.id.imgMorning);
-            iv.setImageResource(android.R.color.transparent);*/
         layout = findViewById(R.id.lytContentNoon);
         layout.removeAllViews();
-            /*layout.addView(findViewById(R.id.imgNoon));
-            iv = findViewById(R.id.imgNoon);
-            iv.setImageResource(android.R.color.transparent);*/
         layout = findViewById(R.id.lytContentEvening);
         layout.removeAllViews();
-            /*layout.addView(findViewById(R.id.imgEvening));
-            iv = findViewById(R.id.imgMorning);
-            iv.setImageResource(android.R.color.transparent);*/
 
         Context context = this;
         SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
@@ -239,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
 
         Set<String> events = sharedPref.getStringSet(dateText.getText().toString(), null);
 
-        System.out.println("Events: "+events);
+        //System.out.println("Events: "+events);
         //new idea
         if(events != null) {
             String[] eventArray = events.toArray(new String[events.size()]);
@@ -248,25 +241,22 @@ public class MainActivity extends AppCompatActivity {
                 String task = eventArray[i].substring(0, eventArray[i].indexOf(";"));
                 String description = eventArray[i].substring(eventArray[i].indexOf(";")+1, eventArray[i].indexOf("+"));
                 String time = eventArray[i].substring(eventArray[i].indexOf("+")+1);
-                System.out.println("Task of i=" + i + " : " + task);
-                System.out.println("Descrip of i=" + i + " : " + description);
-                System.out.println("Time of i=" + i + " : " + time);
+                //System.out.println("Task of i=" + i + " : " + task);
+                //System.out.println("Descrip of i=" + i + " : " + description);
+                //System.out.println("Time of i=" + i + " : " + time);
 
 
                 if (time.equals("Morgens"))
                 {
                     layout = findViewById(R.id.lytContentMorning);
-                    System.out.println("adding to morning");
                 }
                 else if (time.equals("Mittags"))
                 {
                     layout = findViewById(R.id.lytContentNoon);
-                    System.out.println("adding to noon");
                 }
                 else if (time.equals("Abends"))
                 {
                     layout = findViewById(R.id.lytContentEvening);
-                    System.out.println("adding to evening");
                 }
 
                 //layout.removeAllViews();
@@ -296,31 +286,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        //old idea
-        /*if (events != null) {
-            String[] eventArray = events.toArray(new String[events.size()]);
-            System.out.println("length: " + eventArray.length);
-            LinearLayout layout = findViewById(R.id.lytContent);
-            layout.removeAllViews();
-            for (int i = 0; i < eventArray.length; i = i + 3) {
 
-                System.out.println("reading");
-                System.out.println(i);
-                System.out.println(eventArray[i]);
-                System.out.println(eventArray[i + 1]);
-
-                //ImageView Setup
-                ImageView imageView = new ImageView(this);
-                imageView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-
-                //hier muß noch eventArray[i+2] verwendet werden um die Icons in die richtige Reihenfolge und die richtige Höhe zu bringen
-                imageView.setBackgroundResource(R.drawable.cake);
-                imageView.setContentDescription(eventArray[i+1]);
-
-                layout.addView(imageView);
-            }
-        }
-        */
 
 
     }

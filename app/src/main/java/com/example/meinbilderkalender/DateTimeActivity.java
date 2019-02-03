@@ -161,18 +161,7 @@ public class DateTimeActivity extends AppCompatActivity {
         }
         set.add(task + ";" + description + "+" + time);
         System.out.println("Added to set of " + dateText.getText().toString() + "with content: " + task + ";" + description + ";" + time);
-        //old idea
-        /*if(set == null) {
-            set = new HashSet<>();
-        }
-        System.out.println("These are the task: "+ task + ", the description: "+description+", and the time:" + time);
-        set.add(task);
-        set.add(description);
-        set.add(time);
-        System.out.println("saving");
-        for (String s : set) {
-            System.out.println(s);
-        }*/
+
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putStringSet(dateText.getText().toString(), set);
         editor.commit();
